@@ -18,5 +18,19 @@ model Filme  {
   titulo    String         
   imagem    String
   nota      Float    
+
+  userId    Int
+  user      User @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+mode User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String   
+
+  filmes    Filme[]
+
   createdAt DateTime @default(now())
 }
