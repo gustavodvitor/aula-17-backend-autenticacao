@@ -24,11 +24,11 @@ model Filme  {
   createdAt DateTime @default(now())
 }
 
-mode User {
+model User {
   id        Int      @id @default(autoincrement())
-  name      String
+  nome      String
   email     String   @unique
-  password  String   
+  senha     String   
 
   filmes    Filme[]
 
