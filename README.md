@@ -24,10 +24,36 @@ Para o bom funcionamento do backend com autenticação precisamos instalar as se
 bcrypt - Função hash para a senha. Não devemos armazenar senhas em texto claro
 JWT - Para autenticação e geração de tokens.
 
+# Novos arquivos
+
+
+```
+src
+├── controller
+    ├── auth.controller.ts (local chamado após o desvio do auth.routes. Aqui extrai os dados das requisições antes de chamar os services
+├── middelware
+    ├── auth.middleware.ts (Local que iintercepta requisições e verificar se usuário possui token válido)
+├── routes
+    ├── auth.routes.ts (Faz o redirecionamento de POST /create, POST /login e POST /logout)
+├── tipos
+    ├── auth-payload.ts (tipo de dado que representa o conteúdo útil de autenticação)
+├── services
+    ├── auth.services.ts (acesso a base de dados para criar user e validar login)
+
+
+```
+
 # Criar .env
 
-- NEXT_PUBLIC_API_URL="http://localhost:3001" (Aula 16)
+- DATABASE_URL="file:./app.bd (da Aula-15)
+- JWT_SECRET="gerar um token".
 
+Uma forma comum para gerar o JWT_SECRET é usar o próprio node. Com a seguinte sintaxe no terminal:
+
+  - $ node
+  - $ require('crypto').randomBytes(64).toString('hex')
+Em seguida copiar o resultado e colocar como valor de JWT_SECRET
+  - $ .exit (para fechar o terminal node)
 
 
 
