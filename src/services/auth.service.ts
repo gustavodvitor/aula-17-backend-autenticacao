@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken"
 
 export class AuthService{
 
-    async create(nome: string, email: string, senha: string)
+    async create(email: string, senha: string)
     {
         const existeUser = await prisma.user.findUnique({
             where: {email}
@@ -19,7 +19,6 @@ export class AuthService{
         const senhaHashed = await bcrypt.hash(senha,10);
 
         const dados = {
-            nome,
             email,
             senha: senhaHashed
         }
@@ -27,10 +26,9 @@ export class AuthService{
         const user = await prisma.user.create({
             data: dados,
         });
-
+        
         return {
             id: user.id,
-            nome: user.nome,
             email: user.email
         }
     }

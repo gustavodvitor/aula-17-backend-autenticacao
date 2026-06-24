@@ -6,16 +6,14 @@ import { AuthPayload } from "../tipos/auth-payload";
 export function authMiddleware(req:Request, res:Response, next: NextFunction)
 {
 
-    const authHeader = req.headers.authorization;
+    const token = req.cookies.token;
 
-    if(!authHeader)
+    if(!token)
     {
         return res.status(400).json({
-            message: "Token vazio",
+            message: "Não autenticado",
         });
     }
-
-    const token = authHeader.split(" ")[1];
 
     try{
         const payload =jwt.verify(token,process.env.JWT_SECRET!) as AuthPayload
@@ -29,8 +27,4 @@ export function authMiddleware(req:Request, res:Response, next: NextFunction)
             message: "Token inválido",
         });
     }
-
-
-
-
 }
