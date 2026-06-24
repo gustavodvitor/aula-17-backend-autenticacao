@@ -47,7 +47,7 @@ export class AuthService{
             );
         }
 
-        const senhaMatch = bcrypt.compare(senha,user.senha);
+        const senhaMatch = await bcrypt.compare(senha,user.senha);
 
         if(!senhaMatch)
         {
