@@ -6,6 +6,8 @@ import { authMiddleware } from "../middleware/auth.middleware";
 const router = Router();
 const filmeController = new FilmeController();
 
+//Aqui acontece o "Meio do caminho" (middle). Antes de acessar algum rota /filme, o middleware é chamado
+// .use intercepta todas as requisições. 
 router.use(authMiddleware);
 
 router.post('/',filmeController.create);

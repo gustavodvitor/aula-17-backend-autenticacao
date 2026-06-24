@@ -13,10 +13,10 @@ export class AuthController{
 
             const user = await authService.create(email,senha);
 
-            return res.json(user);
+            res.json(user);
         } catch (error)
         {
-            return res.status(400).json({
+            res.status(400).json({
                 message: 
                    error instanceof Error
                    ? error.message
@@ -34,22 +34,20 @@ export class AuthController{
 
             const resposta = await authService.login(email,senha);
 
-            res.cookie(
-                "token",
-                resposta.token,
+            res.cookie("token", resposta.token,
                 {
                     httpOnly: true,
                     secure: false,
                     sameSite: "lax",
                 }
             )
-            return res.json({
+            res.json({
                 success: true,
             });
 
         } catch (error)
         {
-            return res.status(400).json({
+            res.status(400).json({
                 message: 
                    error instanceof Error
                    ? error.message
@@ -62,7 +60,7 @@ export class AuthController{
     {
         res.clearCookie("token");
 
-        return res.json({
+        res.json({
             success: true,
         });
     }

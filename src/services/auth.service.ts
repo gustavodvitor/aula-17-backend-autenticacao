@@ -12,10 +12,11 @@ export class AuthService{
 
         if(existeUser){
             throw new Error(
-                "Usuário ou senha inválido"
+                "Erro ao criar usuário"
             );
         }
-
+        //lembrar que bcrypt é assincrono.
+        //tive esse bug, custei a encontrar o erro.
         const senhaHashed = await bcrypt.hash(senha,10);
 
         const dados = {
@@ -56,7 +57,6 @@ export class AuthService{
             );
         }
 
-        //Gerar o token
         const token = jwt.sign(
             {
                 id: user.id,
@@ -66,7 +66,7 @@ export class AuthService{
                 expiresIn: "1d",
             }
         );
-
+        //devolve o token pq o login foi sucesso. Senha conferiu
         return {
             token,
         };
