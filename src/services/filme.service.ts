@@ -14,22 +14,10 @@ export class FilmeService{
 
     async delete(id: number, userId: number)
     {
-        const filme = await prisma.filme.findFirst({
-            where: {
-                id,
-                userId,
-            },
-        });
-
-        if (!filme) {
-            throw new Error(
-                "Filme não encontrado"
-            );
-        }
-
         await prisma.filme.delete({
             where: {
                 id,
+                userId
             },
         });
     }
@@ -46,29 +34,20 @@ export class FilmeService{
     async findById(id: number, userId: number)
     {
         return await prisma.filme.findUnique({
-            where: {id}
+            where: {
+                id,
+                userId
+            }
         });
     }
 
     async update(id:number, userId: number, dados: {titulo: string; nota: number; imagem: string; })
     {
 
-        const filme = await prisma.filme.findFirst({
-                where: {
-                    id,
-                    userId,
-                },
-            });
-
-            if (!filme) {
-                throw new Error(
-                    "Filme não encontrado"
-            );
-        }
-
         await prisma.filme.update({
             where:{
                 id,
+                userId,
             },
             data: dados,
         });
