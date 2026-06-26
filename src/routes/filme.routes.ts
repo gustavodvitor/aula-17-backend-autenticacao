@@ -14,6 +14,7 @@ router.post('/',filmeController.create);
 router.delete('/:id',filmeController.delete);
 router.get('/',filmeController.findAll);
 router.get('/:id',filmeController.findById);
-router.put('/:id',filmeController.update);
+router.put("/:id", authMiddleware, filmeController.update);
+router.delete("/:id", authMiddleware, filmeController.delete);
 
 export {router as filmeRoutes};
